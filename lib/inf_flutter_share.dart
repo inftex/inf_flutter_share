@@ -7,6 +7,10 @@
 
 import 'inf_flutter_share_platform_interface.dart';
 
+export 'share_manager_abstract.dart';
+export 'share_manager_impl.dart';
+export 'share_result.dart';
+
 class InfFlutterShare {
   Future<String?> getPlatformVersion() {
     return InfFlutterSharePlatform.instance.getPlatformVersion();
