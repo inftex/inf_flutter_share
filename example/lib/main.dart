@@ -58,12 +58,14 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              InkWell(
-                onTap: () {
-                  Share.I.share(content: 'hello https://google.com');
-                },
-                child: Text('Share'),
-              )
+              Share.I.defaultButton(
+                  title: 'Share with your friend',
+                  // backgroundColor: Colors.yellow,
+                  // iconColor: Colors.red,
+                  // textStyle: TextStyle(color: Colors.red),
+                  onClick: () {
+                    Share.I.share('hello link');
+                  })
             ],
           ),
         ),
