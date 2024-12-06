@@ -1,6 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:inf_flutter_share/inf_flutter_share.dart';
 
+///
+///
+/// "App name
+/// Android: https://play.google.com/store/apps/details?id=$appId
+/// iOS: https://apps.apple.com/app/id$appId"
+///
+///
 abstract class Share {
   static Share? _instance;
 
