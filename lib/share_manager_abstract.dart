@@ -19,7 +19,7 @@ abstract class Share {
   ///
   /// Create custom share button and call this function on click
   ///
-  Future<ShareResult> share(String content);
+  Future<ShareResult> share(BuildContext context, String content);
 
   ///
   /// Default button with share()
@@ -30,13 +30,13 @@ abstract class Share {
     // backgroundColor: Colors.yellow,
     // iconColor: Colors.red,
     // textStyle: TextStyle(color: Colors.red),
-    onClick: () {
-      Share.I.share('hello link');
+    onClick: (context) {
+      Share.I.share(context, 'hello link');
     })
   */
   Widget defaultButton({
     required String title,
-    required Function onClick,
+    required Function(BuildContext context) onClick,
     Color? backgroundColor,
     Color? iconColor,
     TextStyle? textStyle,

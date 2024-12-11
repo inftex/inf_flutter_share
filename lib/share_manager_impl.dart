@@ -6,8 +6,13 @@ class ShareImpl extends Share {
   ShareImpl();
 
   @override
-  Future<ShareResult> share(String content) async {
-    final result = await sp.Share.share(content);
+  Future<ShareResult> share(BuildContext context, String content) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final result = await sp.Share.share(
+      content,
+      sharePositionOrigin:
+          box!.localToGlobal(Offset.zero) & box.size, // required for iPad, Mac
+    );
     return _convertToResult(result.status);
   }
 
@@ -22,45 +27,47 @@ class ShareImpl extends Share {
   @override
   Widget defaultButton({
     required String title,
-    required Function onClick,
+    required Function(BuildContext context) onClick,
     Color? backgroundColor,
     Color? iconColor,
     TextStyle? textStyle,
   }) {
-    return InkWell(
-      onTap: () {
-        onClick.call();
-      },
-      splashColor: null,
-      highlightColor: null,
-      focusColor: null,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? Colors.blue,
-          // border: Border.all(color: Colors.blue),
-          borderRadius: BorderRadius.circular(8),
+    return Builder(builder: (context) {
+      return InkWell(
+        onTap: () {
+          onClick.call(context);
+        },
+        splashColor: null,
+        highlightColor: null,
+        focusColor: null,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? Colors.blue,
+            // border: Border.all(color: Colors.blue),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.share,
+                color: iconColor ?? Colors.white,
+                size: 24,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                title,
+                style: textStyle ??
+                    const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.share,
-              color: iconColor ?? Colors.white,
-              size: 24,
-            ),
-            const SizedBox(width: 4),
-            Text(
-              title,
-              style: textStyle ??
-                  const TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
+      );
+    });
   }
 }
