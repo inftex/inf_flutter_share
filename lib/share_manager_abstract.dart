@@ -17,13 +17,16 @@ abstract class Share {
   }
 
   ///
-  /// Create custom share button and call this function on click
+  /// !!!IMPORTANT on iPad: create Builder() for context
   ///
   Future<ShareResult> share({
     required BuildContext context,
     required String content,
   });
 
+  ///
+  /// !!!IMPORTANT on iPad: create Builder() for context
+  ///
   Future<ShareResult> shareFile({
     required BuildContext context,
     required String filePath,
