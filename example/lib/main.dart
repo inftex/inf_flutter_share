@@ -68,6 +68,19 @@ class _MyAppState extends State<MyApp> {
                       context: context,
                       content: 'hello link',
                     );
+                  }),
+              SizedBox(height: 30),
+              Share.I.defaultButton(
+                  title: 'Share file',
+                  // backgroundColor: Colors.yellow,
+                  // iconColor: Colors.red,
+                  // textStyle: TextStyle(color: Colors.red),
+                  onClick: (context) {
+                    Share.I.shareFile(
+                      context: context,
+                      filePath: 'abc.pnj',
+                      content: 'hello link',
+                    );
                   })
             ],
           ),
