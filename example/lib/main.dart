@@ -64,7 +64,10 @@ class _MyAppState extends State<MyApp> {
                   // iconColor: Colors.red,
                   // textStyle: TextStyle(color: Colors.red),
                   onClick: (context) {
-                    Share.I.share(context, 'hello link');
+                    Share.I.share(
+                      context: context,
+                      content: 'hello link',
+                    );
                   })
             ],
           ),

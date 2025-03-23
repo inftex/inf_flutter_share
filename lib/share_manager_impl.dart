@@ -6,10 +6,28 @@ class ShareImpl extends Share {
   ShareImpl();
 
   @override
-  Future<ShareResult> share(BuildContext context, String content) async {
+  Future<ShareResult> share({
+    required BuildContext context,
+    required String content,
+  }) async {
     final box = context.findRenderObject() as RenderBox?;
     final result = await sp.Share.share(
       content,
+      sharePositionOrigin:
+          box!.localToGlobal(Offset.zero) & box.size, // required for iPad, Mac
+    );
+    return _convertToResult(result.status);
+  }
+
+  @override
+  Future<ShareResult> shareFile(
+      {required BuildContext context,
+      required String filePath,
+      required String content}) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final result = await sp.Share.shareXFiles(
+      [sp.XFile(filePath)],
+      text: content,
       sharePositionOrigin:
           box!.localToGlobal(Offset.zero) & box.size, // required for iPad, Mac
     );

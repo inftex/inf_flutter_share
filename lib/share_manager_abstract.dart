@@ -19,7 +19,16 @@ abstract class Share {
   ///
   /// Create custom share button and call this function on click
   ///
-  Future<ShareResult> share(BuildContext context, String content);
+  Future<ShareResult> share({
+    required BuildContext context,
+    required String content,
+  });
+
+  Future<ShareResult> shareFile({
+    required BuildContext context,
+    required String filePath,
+    required String content,
+  });
 
   ///
   /// Default button with share()
